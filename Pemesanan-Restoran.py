@@ -5,6 +5,13 @@ menu = {
     "4": ("Es Teh", 5000, 10),
 }
 
+antrean_terakhir = 0
+
+def buat_nomor_antrean():
+    global antrean_terakhir
+    antrean_terakhir += 1
+    return antrean_terakhir
+
 def sistem_menampilkan_menu():
     print("\n=== menu RESTORAN ===")
     for kode, (nama, harga, stok) in menu.items():
@@ -67,6 +74,10 @@ def main():
                 print(f"Kembalian: Rp{kembalian:,}")
             nama, harga, stok = menu[kode]
             menu[kode] = (nama, harga, stok - jumlah)
+            nomor_antrean = buat_nomor_antrean()
+            print(f"Nomor antrean Anda: {nomor_antrean}")
+            print("Penjual sedang menyiapkan pesanan...")
+            print(f"Pesanan nomor {nomor_antrean} sudah siap, silakan diambil.")
             print("Status pemesanan: SELESAI")
             break
 
