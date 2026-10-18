@@ -1,35 +1,26 @@
 import random
 
-# =========================================================
-# PENGATURAN & DATA
-# =========================================================
-NAMA_RESTORAN = "RESTORAN SEDERHANA"
+NAMA_RESTORAN = "Restoran Lorem Ipsum"
 LEBAR = 46
 
 menu = {
     1: {"nama": "Nasi Goreng", "harga": 20000, "stok": 5},
-    2: {"nama": "Mie Ayam",    "harga": 15000, "stok": 0},   # contoh stok habis
+    2: {"nama": "Mie Ayam",    "harga": 15000, "stok": 0},
     3: {"nama": "Sate Ayam",   "harga": 25000, "stok": 3},
     4: {"nama": "Es Teh",      "harga": 5000,  "stok": 10},
 }
 
-keranjang = {}      # isi: nomor menu -> jumlah
+keranjang = {}
 batal = False
 berhasil = False
 total = 0
 
-
-# =========================================================
-# FUNGSI BANTU (sederhana, hanya untuk tampilan)
-# =========================================================
 def rupiah(angka):
     """20000 -> Rp20.000"""
     return "Rp" + f"{angka:,}".replace(",", ".")
 
-
 def garis(simbol="-"):
     print(simbol * LEBAR)
-
 
 def tampilkan_menu():
     print()
@@ -43,13 +34,11 @@ def tampilkan_menu():
         print(f"{nomor:<4}{item['nama']:<16}{rupiah(item['harga']):>12}{stok:>10}")
     garis()
 
-
 def hitung_total():
     jumlah_total = 0
     for nomor, jumlah in keranjang.items():
         jumlah_total += menu[nomor]["harga"] * jumlah
     return jumlah_total
-
 
 def tampilkan_keranjang(judul, pakai_nomor=False):
     print()
@@ -66,16 +55,9 @@ def tampilkan_keranjang(judul, pakai_nomor=False):
     print(f"{'TOTAL':<30}{rupiah(hitung_total()):>16}")
     garis()
 
-
-# =========================================================
-# START: sistem menampilkan menu
-# =========================================================
 print("START")
 tampilkan_menu()
 
-# =========================================================
-# Pengguna memilih menu & jumlah, sistem memeriksa stok
-# =========================================================
 while True:
     print("\nKetik nomor menu untuk memesan.")
     print("Perintah lain: 'menu', 'keranjang', 'hapus', 'selesai' (bayar), 'batal'")
@@ -116,7 +98,6 @@ while True:
             continue
         break
 
-    # validasi nomor menu
     if not pilih.isdigit() or int(pilih) not in menu:
         print("Nomor menu tidak ada di daftar, coba lagi.")
         continue
@@ -124,7 +105,6 @@ while True:
     nomor = int(pilih)
     item = menu[nomor]
 
-    # Sistem memeriksa stok
     if item["stok"] == 0:
         print(f"Maaf, {item['nama']} sedang habis. Silakan pilih menu lain.")
         continue
@@ -144,16 +124,10 @@ while True:
     print(f"+ {item['nama']} x{jumlah} masuk keranjang.")
     print(f"  Total sementara: {rupiah(hitung_total())}")
 
-# =========================================================
-# Menghitung total pembayaran
-# =========================================================
 if not batal:
     total = hitung_total()
     tampilkan_keranjang("RINGKASAN PESANAN")
 
-# =========================================================
-# Sistem memvalidasi pembayaran
-# =========================================================
 bayar = 0
 while not batal and not berhasil:
     masukan = input("\nMasukkan uang pembayaran (angka saja): ").strip()
@@ -173,11 +147,7 @@ while not batal and not berhasil:
         if pilihan == "batal":
             batal = True
 
-# =========================================================
-# Hasil akhir
-# =========================================================
 if berhasil:
-    # kurangi stok
     for nomor, jumlah in keranjang.items():
         menu[nomor]["stok"] -= jumlah
 
