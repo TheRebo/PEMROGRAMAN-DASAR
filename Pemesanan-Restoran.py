@@ -13,7 +13,7 @@ def buat_nomor_antrean():
     return antrean_terakhir
 
 def sistem_menampilkan_menu():
-    print("\n=== menu RESTORAN ===")
+    print("\n=== MENU RESTORAN ===")
     for kode, (nama, harga, stok) in menu.items():
         print(f"{kode}. {nama:<12} Rp{harga:,}  (stok: {stok})")
 
